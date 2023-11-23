@@ -1,5 +1,5 @@
 <script>
-import { reactive, toRefs, computed } from 'vue';
+import { reactive, toRefs, computed, onMounted, onUnmounted, onUpdated } from 'vue';
 
 export default {
   props:{
@@ -23,6 +23,19 @@ export default {
     const { name, price, quantity } = toRefs(item)
 
     const remove = () => emit('remove', item)
+
+    // Lifecycle Hooks
+    onMounted(() => {
+      console.log('Component mounted.')
+    })
+
+    onUnmounted(() => {
+      console.log('Component Unmounted.')
+    })
+
+    onUpdated(() => {
+      console.log('Component updated.')
+    })
 
     return {
       quantity,
