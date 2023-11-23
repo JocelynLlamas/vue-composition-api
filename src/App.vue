@@ -1,28 +1,29 @@
 <script>
 import { ref } from 'vue';
 import CartItem from './components/CartItem.vue';
+import useCart from './useCart'
 
 export default{
   components: { CartItem, CartItem },
   setup(){
-    const items = ref([
-      {
-        id: 1,
-        name: "Product X",
-        price: 20,
-        quantity: 1
-      }
-    ])
+    const {items, addItem, removeItem} = useCart()
+
+    addItem({
+      id: 1,
+      name: "Product X",
+      price: 20,
+      quantity: 1
+    })
 
     const handleRemove = (data)=> items.value.splice(0,1)
 
-    return {items, handleRemove}
+    return {items, removeItem}
   }
 }
 </script>
 
 <template>
-  <CartItem v-for="item in items" :cart-item="item" :key="item.id" @remove="handleRemove"/>
+  <CartItem v-for="item in items" :cart-item="item" :key="item.id" @remove="removeItem"/>
 </template>
 
 <style scoped></style>

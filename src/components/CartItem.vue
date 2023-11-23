@@ -26,15 +26,15 @@ export default {
 
     // Lifecycle Hooks
     onMounted(() => {
-      console.log('Component mounted.')
+      // console.log('Component mounted.')
     })
 
     onUnmounted(() => {
-      console.log('Component Unmounted.')
+      // console.log('Component Unmounted.')
     })
 
     onUpdated(() => {
-      console.log('Component updated.')
+      // console.log('Component updated.')
     })
 
     return {
