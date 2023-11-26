@@ -1,60 +1,53 @@
-<script>
-import { reactive, toRefs, computed, onMounted, onUnmounted, onUpdated } from 'vue';
+<script setup>
+import {
+  reactive,
+  toRefs,
+  computed,
+  onMounted,
+  onUnmounted,
+  onUpdated,
+} from "vue";
 
-export default {
-  props:{
-    cartItem:{
-      type: Object,
-      required: true
-    }
+const props = defineProps({
+  cartItem: {
+    type: Object,
+    required: true,
   },
-  emits:['remove'],
-  setup(props, {emit}) {
-    // console.log(props.cartItem)
+});
 
-    const item = reactive(props.cartItem)
+const emit = defineEmits(["remove"]);
 
-    const increment = () => item.quantity++
+const item = reactive(props.cartItem);
 
-    const decrement = () => item.quantity--
-    
-    const total = computed(()=> item.price * item.quantity)
+const increment = () => item.quantity++;
 
-    const { name, price, quantity } = toRefs(item)
+const decrement = () => item.quantity--;
 
-    const remove = () => emit('remove', item)
+const total = computed(() => item.price * item.quantity);
 
-    // Lifecycle Hooks
-    onMounted(() => {
-      // console.log('Component mounted.')
-    })
+const { name, price, quantity } = toRefs(item);
 
-    onUnmounted(() => {
-      // console.log('Component Unmounted.')
-    })
+const remove = () => emit("remove", item);
 
-    onUpdated(() => {
-      // console.log('Component updated.')
-    })
+// Lifecycle Hooks
+onMounted(() => {
+  // console.log('Component mounted.')
+});
 
-    return {
-      quantity,
-      name,
-      price,
-      total,
-      remove,
-      increment,
-      decrement,
-    }
-  }
-}
+onUnmounted(() => {
+  // console.log('Component Unmounted.')
+});
+
+onUpdated(() => {
+  // console.log('Component updated.')
+});
 </script>
 
 <template>
   <h1>{{ name }} : {{ price }} : {{ quantity }}</h1>
   <button @click="increment">+</button>
   <button @click="decrement">-</button>
-  <br>
+  <br />
   <button @click="remove">Remove</button>
 
   <h3>Total: {{ total }}</h3>
